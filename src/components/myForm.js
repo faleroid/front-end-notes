@@ -20,9 +20,9 @@ class MyForm extends HTMLElement{
             justify-self: center;
 
             background-color: #191919;
-            width: 85%;
-            padding: 30px 25px 30px 30px;
-            border: 2px solid black;
+            width: 95%;
+            padding: 30px;
+            border: 1.5px solid black;
             border-radius: 10px;
         }
 
@@ -44,7 +44,7 @@ class MyForm extends HTMLElement{
         }
 
         textarea{
-            max-width: 690px;
+            max-width: 1060px;
             height: 130px;
             padding: 10px;
             border-radius: 5px;
@@ -71,6 +71,13 @@ class MyForm extends HTMLElement{
             padding: 8px;
             font-family: var(--fontPar);
             color: #635502;
+        }
+
+        @media (max-width: 575px){
+            form{
+                width: 86%;
+                padding: 20px;
+            }
         }
         `
     }

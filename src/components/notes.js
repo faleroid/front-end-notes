@@ -3,8 +3,17 @@ class NoteList extends HTMLElement {
     super();
 
     this._noteList = [];
+    this._showAll = false;
+
     this._style = document.createElement('style');
     this._wrapper = document.createElement('div');
+    this._button = document.createElement('button');
+    this._header = document.createElement('h2');
+
+    this._button.addEventListener('click', () => {
+      this._showAll = !this._showAll;
+      this.render();
+    });
   }
 
   setNoteList(value) {
@@ -19,18 +28,42 @@ class NoteList extends HTMLElement {
   updateStyle() {
     this._style.textContent = `
       .notes {
-        padding: 0 40px 25px 0px;
+        grid-area: notes;
         display: grid;
-        justify-self: start;
-        align-self: start;
         gap: 15px;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
       }
 
-      .notes h2 {
+      .notes-header {
+        grid-area: notes-header;
         grid-column: 1 / -1;
         color: var(--whiteColor);
         font-family: var(--fontPar);
+      }
+
+      .show-more-btn {
+        grid-area: btn-more;
+        margin-top: 10px;
+        padding: 8px 16px;
+        border: 1.5px solid black;
+        background-color: var(--primaryColor, var(--blackColor));
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: var(--fontPar);
+        justify-self: start;
+      }
+
+      @media (min-width: 768px) and (max-width: 991px){
+        .notes{
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 575px){
+        .notes{
+          grid-template-columns: 1fr;
+        }
       }
     `;
   }
@@ -39,16 +72,25 @@ class NoteList extends HTMLElement {
     this.updateStyle();
 
     this._wrapper.className = 'notes';
-    this._wrapper.innerHTML = `<h2>Catatanmu</h2>`;
+    // this._wrapper.innerHTML = `<h2>Catatanmu</h2>`;
+    this._wrapper.innerHTML = '';
 
-    this._noteList.forEach((item) => {
+    const notesToRender = this._showAll ? this._noteList : this._noteList.slice(0, 4);
+    notesToRender.forEach((item) => {
       const note = document.createElement('note-item');
       note.setNote(item);
       this._wrapper.appendChild(note);
     });
 
+    this._header.className = 'notes-header';
+    this._header.textContent = 'Catatanmu';
+
+    // Update button
+    this._button.className = 'show-more-btn';
+    this._button.textContent = this._showAll ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Lebih Banyak';
+
     this.innerHTML = '';
-    this.append(this._style, this._wrapper);
+    this.append(this._style, this._header, this._wrapper, this._button);
   }
 }
 

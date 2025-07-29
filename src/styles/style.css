@@ -27,13 +27,15 @@ body{
 }
 
 main{
+    padding: 5px 60px 40px 60px;
     display: grid;
-    row-gap: 50px;
+    row-gap: 30px;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 0.45fr auto;
+    grid-template-rows: 0.45fr auto auto;
     grid-template-areas: 
-    '. main-title .'
-    'form form notes' ;
+    'main-title main-title main-title'
+    'form form form'
+    'note-list note-list note-list' ;
 }
 
 main-title{
@@ -45,5 +47,19 @@ my-form{
 }
 
 note-list{
-    grid-area: notes;
+    grid-area: note-list;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    'notes-header . .'
+    'notes notes notes'
+    'btn-more btn-more .';
+    gap: 10px;
+}
+
+@media (max-width: 575px){
+    main{
+        padding: 5px 20px 15px 20px;
+    } 
 }

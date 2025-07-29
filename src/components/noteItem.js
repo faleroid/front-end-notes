@@ -29,8 +29,9 @@ class NoteItem extends HTMLElement {
   updateStyle() {
     this._style.textContent = `
       .note-item {
+        grid-area: note-item;
         background-color: #191919;
-        border: 2px solid black;
+        border: 1.5px solid black;
         border-radius: 5px;
       }
 
@@ -50,6 +51,13 @@ class NoteItem extends HTMLElement {
         padding: 10px;
         margin: 0;
       }
+
+      .note-item:hover{
+        border: 1px solid var(--yellowColor);
+        p, h3 {
+         color: var(--yellowColor);
+          }
+        }
     `;
   }
 
