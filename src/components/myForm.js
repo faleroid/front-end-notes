@@ -100,6 +100,7 @@ class MyForm extends HTMLElement{
             }
 
             textarea{
+                width: auto;
                 height: 230px;
             }
         }
