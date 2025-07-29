@@ -51,7 +51,7 @@ class MyForm extends HTMLElement{
 
         textarea{
             max-width: 1060px;
-            height: 130px;
+            height: 180px;
             padding: 10px;
             border-radius: 5px;
             font-size: 14px;

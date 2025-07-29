@@ -27,6 +27,12 @@ class MyTitle extends HTMLElement{
             color: var(--whiteColor);
             font-family: var(--fontPar);
         }
+
+        @media (max-width: 575px){
+            p{
+                font-size: 14px;
+            }
+        }
         `
     }
 
