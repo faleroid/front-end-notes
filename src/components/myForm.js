@@ -40,7 +40,13 @@ class MyForm extends HTMLElement{
             height: 20px;
             padding: 10px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        form input::placeholder{
+            font-weight: 450;
+            font-family: var(--fontPar);
         }
 
         textarea{
@@ -70,7 +76,7 @@ class MyForm extends HTMLElement{
             width: fit-content;
             padding: 8px;
             font-family: var(--fontPar);
-            color: #635502;
+            color: #453a00ff;
         }
 
         @media (max-width: 575px){

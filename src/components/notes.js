@@ -87,7 +87,7 @@ class NoteList extends HTMLElement {
 
     // Update button
     this._button.className = 'show-more-btn';
-    this._button.textContent = this._showAll ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Lebih Banyak';
+    this._button.textContent = this._showAll ? 'Tampilkan Lebih Sedikit' : 'Lihat Semua Catatan';
 
     this.innerHTML = '';
     this.append(this._style, this._header, this._wrapper, this._button);

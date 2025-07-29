@@ -6,6 +6,7 @@ class NoteItem extends HTMLElement {
       id: 0,
       title: 'NEED_TITLE',
       body: 'NEED_BODY_PAYLOAD',
+      createdAt: new Date().toISOString(),
     };
 
     this._style = document.createElement('style');
@@ -17,6 +18,7 @@ class NoteItem extends HTMLElement {
       id: value.id,
       title: value.title,
       body: value.body,
+      createdAt: value.createdAt,
     };
 
     this.render();
@@ -52,12 +54,26 @@ class NoteItem extends HTMLElement {
         margin: 0;
       }
 
-      .note-item:hover{
+      .note-item time{
+        font-family: var(--fontPar);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .note-item time p{
+        font-size: 11px;
+        color: gray;
+      }
+
+      .note-item:hover {
         border: 1px solid var(--yellowColor);
-        p, h3 {
-         color: var(--yellowColor);
-          }
-        }
+      }
+
+      .note-item:hover h3,
+      .note-item:hover p,
+      .note-item:hover time{
+        color: var(--yellowColor);
+      }
     `;
   }
 
@@ -65,10 +81,23 @@ class NoteItem extends HTMLElement {
     this.setAttribute('data-id', this._notes.id);
     this.updateStyle();
 
+    const date = new Date(this._notes.createdAt);
+    const formattedDate = date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+
+    const formattedTime = date.toLocaleTimeString('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
     this._container.className = 'note-item';
     this._container.innerHTML = `
       <h3>${this._notes.title}</h3>
       <p>${this._notes.body}</p>
+      <time><p>${formattedDate}</p> <p>${formattedTime}</p></time>
     `;
 
     this.innerHTML = '';

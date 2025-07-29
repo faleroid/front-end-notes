@@ -7,14 +7,18 @@ import {notesData} from '../utils/notesData.js';
 
 const form = document.querySelector('my-form');
 
-const popup = document.querySelector('#popup');
-
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     showPopup('Yeay, Catatan berhasil ditambahkan!')
     form.reset();
 })
+
+const notesSelector = document.querySelector('note-list');
+notesSelector.setNoteList(notesData);
+
+// Pop Up
+const popup = document.querySelector('#popup');
 
 function showPopup(message) {
   popup.textContent = message;
@@ -27,5 +31,9 @@ function showPopup(message) {
   }, 5000);
 }
 
-const notesSelector = document.querySelector('note-list');
-notesSelector.setNoteList(notesData);
+
+
+
+
+
+
