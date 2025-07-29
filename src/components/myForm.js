@@ -61,8 +61,10 @@ class MyForm extends HTMLElement{
         }
 
         textarea{
+            resize: vertical;
+            width: auto;
+            box-sizing: border-box;
             border: none;
-            max-width: 1060px;
             height: 180px;
             padding: 10px;
             border-radius: 5px;
@@ -93,13 +95,12 @@ class MyForm extends HTMLElement{
 
         @media (max-width: 600px){
             form{
-                width: 86%;
+                width: 310px;
                 padding: 20px;
             }
 
             textarea{
                 height: 230px;
-                max-width: 285px;
             }
         }
         `
