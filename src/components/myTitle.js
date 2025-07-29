@@ -40,7 +40,7 @@ class MyTitle extends HTMLElement{
         this.innerHTML = 
         `
         <h1>The <span class="redBold">#Dear</span>y</h1>
-        <p>"The faintest ink is <span class="yellowBold">more powerful</span>  than the strongest memory."</p>
+        <p>When The faintest ink is <span class="yellowBold">more powerful</span>  than the strongest memory.</p>
         `;
         
         this.updateStyle();

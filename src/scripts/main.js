@@ -4,35 +4,49 @@ import '../components/popUp.js';
 import '../components/noteItem.js';
 import '../components/notes.js';
 import {notesData} from '../utils/notesData.js';
-
-const form = document.querySelector('my-form');
-
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    showPopup('Yeay, Catatan berhasil ditambahkan!')
-    form.reset();
-})
+import { showPopup } from './showPopUp.js';
+import { saveNotesToStorage, loadNotesFromStorage } from './webStorage.js';
 
 const notesSelector = document.querySelector('note-list');
 notesSelector.setNoteList(notesData);
 
-// Pop Up
-const popup = document.querySelector('#popup');
+const form = document.getElementById('noteForm');
+const noteTitle = document.getElementById('noteTitle');
+const noteBody = document.getElementById('noteBody');
+const noteList = document.querySelector('note-list');
 
-function showPopup(message) {
-  popup.textContent = message;
-  popup.classList.remove('hidden');
-  popup.classList.add('show');
+let notes = [...notesData];
 
-  setTimeout(() => {
-    popup.classList.remove('show');
-    popup.classList.add('hidden');
-  }, 5000);
-}
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
+  const title = noteTitle.value.trim();
+  const body = noteBody.value.trim();
 
+  const prerequiteBodyChar = 10;
 
+  if (!title || body.length < prerequiteBodyChar){
+    showPopup('Bete gw, isi catatan harus punya minimal 10 karakter!', 'error');
+    form.reset();
+
+    return;
+  }
+
+  const newNote = {
+    id: `note-${Date.now()}`,
+    title,
+    body,
+    createdAt: new Date().toISOString(),
+    archived: false,
+  };
+
+  notes.unshift(newNote);
+  saveNotesToStorage(newNote);
+  noteList.setNoteList(notes);
+
+  showPopup('Horeee, Catatanmu berhasil disimpan!', 'success');
+  form.reset();
+});
 
 
 

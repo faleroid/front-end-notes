@@ -42,14 +42,26 @@ class MyForm extends HTMLElement{
             border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
+            font-family: var(--fontPar);
+            border: none;
         }
 
         form input::placeholder{
             font-weight: 450;
-            font-family: var(--fontPar);
+        }
+
+        form input:focus, textarea:focus{
+            outline: none;
+            border: 2px solid var(--redColor);
+        }
+
+        input:focus + label,
+        textarea:focus + label {
+            color: var(--redColor);
         }
 
         textarea{
+            border: none;
             max-width: 1060px;
             height: 180px;
             padding: 10px;
@@ -95,7 +107,7 @@ class MyForm extends HTMLElement{
     render(){
         this.innerHTML = 
         `
-        <form>
+        <form id="noteForm">
             <span class="form-title"><h2>Yuk, Mau Nyatet Apa?</h2></span>
             <div class="form-group">
                 <label for="noteTitle"><span class="redBold">*</span> Judul Catatan</label>

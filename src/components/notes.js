@@ -72,7 +72,6 @@ class NoteList extends HTMLElement {
     this.updateStyle();
 
     this._wrapper.className = 'notes';
-    // this._wrapper.innerHTML = `<h2>Catatanmu</h2>`;
     this._wrapper.innerHTML = '';
 
     const notesToRender = this._showAll ? this._noteList : this._noteList.slice(0, 4);
@@ -83,7 +82,7 @@ class NoteList extends HTMLElement {
     });
 
     this._header.className = 'notes-header';
-    this._header.textContent = 'Catatanmu';
+    this._header.textContent = `Catatanmu (${this._noteList.length})`;
 
     // Update button
     this._button.className = 'show-more-btn';
