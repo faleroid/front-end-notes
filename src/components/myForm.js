@@ -84,6 +84,10 @@ class MyForm extends HTMLElement{
                 width: 86%;
                 padding: 20px;
             }
+
+            textarea{
+                height: 230px;
+            }
         }
         `
     }
