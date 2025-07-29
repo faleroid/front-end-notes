@@ -91,7 +91,7 @@ class MyForm extends HTMLElement{
             color: #453a00ff;
         }
 
-        @media (max-width: 575px){
+        @media (max-width: 600px){
             form{
                 width: 86%;
                 padding: 20px;
@@ -99,6 +99,7 @@ class MyForm extends HTMLElement{
 
             textarea{
                 height: 230px;
+                max-width: 285px;
             }
         }
         `
