@@ -95,7 +95,7 @@ class MyForm extends HTMLElement{
 
         @media (max-width: 600px){
             form{
-                width: 310px;
+                width: 85%;
                 padding: 20px;
             }
 
