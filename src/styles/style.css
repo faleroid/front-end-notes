@@ -21,6 +21,14 @@
     padding: 0;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
 body{
     background-color: #101010;
     background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
