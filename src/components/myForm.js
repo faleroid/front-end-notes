@@ -37,13 +37,15 @@ class MyForm extends HTMLElement{
         }
 
         form input{
+            all: unset;
+            background-color: transparent;
             height: 20px;
             padding: 10px;
-            border-radius: 5px;
+            border-bottom: 1px solid grey;
+            outline: none;
             font-size: 16px;
             font-weight: bold;
             font-family: var(--fontPar);
-            border: none;
         }
 
         form input::placeholder{
@@ -52,23 +54,18 @@ class MyForm extends HTMLElement{
 
         form input:focus, textarea:focus{
             outline: none;
-            border: 2px solid var(--redColor);
-        }
-
-        input:focus + label,
-        textarea:focus + label {
-            color: var(--redColor);
+            border-bottom: 2px solid var(--yellowColor);
         }
 
         textarea{
-            resize: vertical;
+            all: unset;
+            resize: none;
             width: auto;
             box-sizing: border-box;
-            border: none;
-            height: 180px;
+            border-bottom: 1px solid grey;
+            height: 160px;
             padding: 10px;
-            border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
             font-family: var(--fontPar);
         }
 
@@ -100,8 +97,11 @@ class MyForm extends HTMLElement{
             }
 
             textarea{
-                width: auto;
                 height: 230px;
+            }
+
+            input, textarea{
+                widht: 500px;
             }
         }
         `

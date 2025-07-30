@@ -38,6 +38,7 @@ class PopUp extends HTMLElement {
           background-color: #f50000 !important;
           color: #fff !important;
         }
+
       </style>
       <span id="popup" class="popup"></span>
     `;
