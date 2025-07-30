@@ -30,7 +30,7 @@ class MyTitle extends HTMLElement{
 
         @media (max-width: 575px){
             p{
-                font-size: 14px;
+                font-size: 12px;
             }
         }
         `

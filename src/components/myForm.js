@@ -21,7 +21,7 @@ class MyForm extends HTMLElement{
 
             background-color: #191919;
             width: 95%;
-            padding: 30px;
+            padding: 20px 30px;
             border: 1.5px solid black;
             border-radius: 10px;
         }
@@ -52,21 +52,34 @@ class MyForm extends HTMLElement{
             font-weight: 450;
         }
 
-        form input:focus, textarea:focus{
-            outline: none;
-            border-bottom: 2px solid var(--yellowColor);
-        }
-
         textarea{
             all: unset;
             resize: none;
             width: auto;
             box-sizing: border-box;
             border-bottom: 1px solid grey;
-            height: 160px;
+            height: 220px;
             padding: 10px;
             font-size: 16px;
             font-family: var(--fontPar);
+        }
+
+        #bodyValidation, #titleValidation{
+            font-size: 12px;
+            color: var(--redColor);
+            text-align: left;
+        }
+
+        .warning{
+            border-bottom: 1px solid var(--redColor);
+        }
+
+        form .passed{
+            border-bottom: 2px solid var(--yellowColor);
+        }
+
+        form .hidden{
+            display: none;
         }
 
         .form-group{
@@ -91,17 +104,22 @@ class MyForm extends HTMLElement{
         }
 
         @media (max-width: 600px){
+            h2{
+                font-size: 20px;
+            }
+
             form{
                 width: 85%;
                 padding: 20px;
+            
             }
 
             textarea{
-                height: 230px;
+                height: 240px;
             }
 
-            input, textarea{
-                widht: 500px;
+            form input{
+                width: 92%;
             }
         }
         `
@@ -110,15 +128,17 @@ class MyForm extends HTMLElement{
     render(){
         this.innerHTML = 
         `
-        <form id="noteForm">
+        <form id="noteForm" novalidate>
             <span class="form-title"><h2>Yuk, Mau Nyatet Apa?</h2></span>
             <div class="form-group">
                 <label for="noteTitle"><span class="redBold">*</span> Judul Catatan</label>
-                <input type=text id="noteTitle" name="noteTitle" placeholder="Rangkuman Kuliah" required/>
+                <input type=text id="noteTitle" name="noteTitle" placeholder="Rangkuman Kuliah" autocomplete="off" minlength="1" aria-describedby="titleValidation" required/>
+                <p id="titleValidation">Judul tidak boleh kosong!</p>
             </div>
             <div class="form-group">
                 <label for="noteBody"><span class="redBold">*</span> Isi Catatan</label>
-                <textarea id="noteBody" name="noteBody" required></textarea>
+                <textarea id="noteBody" name="noteBody" minlength="10" aria-describedby="bodyValidation" required></textarea>
+                <p id="bodyValidation">Minimal 10 Karakter</p>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn">Simpan</button>

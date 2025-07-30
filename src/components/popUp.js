@@ -16,7 +16,7 @@ class PopUp extends HTMLElement {
           top: 30px;
           right: 30px;
           padding: 12px 20px;
-          border-radius: 8px;
+          border-radius: 5px;
           font-family: var(--fontPoppins, sans-serif);
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           opacity: 0;
@@ -37,6 +37,16 @@ class PopUp extends HTMLElement {
         .error {
           background-color: #f50000 !important;
           color: #fff !important;
+        }
+
+        @media (max-width: 575px){
+          .popup{
+            top: 20px;
+            left: 35px;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+          }
         }
 
       </style>
