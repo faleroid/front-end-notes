@@ -15,7 +15,7 @@ const form = document.getElementById('noteForm');
 const noteTitle = document.getElementById('noteTitle');
 const noteBody = document.getElementById('noteBody');
 const noteList = document.querySelector('note-list');
-const bodyValidation = noteBody.getAttribute('minlength');
+const bodyValidation = parseInt(noteBody.getAttribute('minlength'));
 const descBodyValidation = document.getElementById('bodyValidation');
 const descTitleValidation = document.getElementById('titleValidation');
 
@@ -81,19 +81,21 @@ form.addEventListener('submit', (e) => {
 
         clearBodyWarning(3000);
         clearTitleWarning(3000);
+        return;
      }else if (!title){
         noteTitle.classList.add('warning');
         showPopup('Woilah cik, judulnya ketinggalan', 'error');
 
         clearTitleWarning(3000);
+        return;
     } else{
         noteBody.classList.add('warning');
         descBodyValidation.classList.remove('hidden');
         showPopup('Bete gw, isi catatan harus punya minimal 10 karakter!', 'error');
 
         clearBodyWarning(3000);
+        return;
     }
-    return;
   }
 
   const newNote = {
@@ -105,7 +107,6 @@ form.addEventListener('submit', (e) => {
   };
 
   notes.unshift(newNote);
-  saveNotesToStorage(newNote);
   noteList.setNoteList(notes);
 
   showPopup('Horeee, Catatanmu berhasil disimpan!', 'success');
