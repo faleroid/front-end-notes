@@ -1,3 +1,9 @@
+function clearAllTrigger(){
+    const noteTitle = document.getElementById('noteTitle');
+    const noteBody = document.getElementById('noteBody');
+    noteTitle.classList.remove('passed')
+    noteBody.classList.remove('passed')
+}
 
 function clearBodyWarning(time){
     const noteBody = document.getElementById('noteBody');
@@ -31,4 +37,4 @@ function addBodyWarning(){
     noteBody.classList.add('warning');
 }
 
-export {clearBodyWarning, clearTitleWarning, addBodyWarning, addTitleWarning};
+export {clearBodyWarning, clearTitleWarning, addBodyWarning, addTitleWarning, clearAllTrigger};

@@ -3,21 +3,30 @@ import '../components/myForm.js';
 import '../components/popUp.js';
 import '../components/noteItem.js';
 import '../components/notes.js';
-import {notesData} from '../utils/notesData.js';
+import '../components/myFooter.js';
+import { notesData } from '../utils/notesData.js';
 import { showPopup } from './showPopUp.js';
-import { clearBodyWarning, clearTitleWarning, addBodyWarning, addTitleWarning } from './formValidations.js';
+import { clearBodyWarning, clearTitleWarning, addBodyWarning, addTitleWarning, clearAllTrigger} from './formValidations.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const myFooter = document.querySelector('my-footer');
+  if (myFooter) {
+    myFooter.setAttribute('footer-color', 'gray');
+  }
+});
 
 let notes = [...notesData];
-const notesSelector = document.querySelector('note-list');
-notesSelector.setNoteList(notesData);
+const noteList = document.querySelector('note-list');
+noteList.setNoteList(notesData);
 
 const form = document.getElementById('noteForm');
+
 const noteTitle = document.getElementById('noteTitle');
-const noteBody = document.getElementById('noteBody');
-const noteList = document.querySelector('note-list');
-const bodyValidation = parseInt(noteBody.getAttribute('minlength'));
-const descBodyValidation = document.getElementById('bodyValidation');
 const descTitleValidation = document.getElementById('titleValidation');
+
+const noteBody = document.getElementById('noteBody');
+const descBodyValidation = document.getElementById('bodyValidation');
+const bodyValidation = parseInt(noteBody.getAttribute('minlength'));
 
 descTitleValidation.classList.add('hidden');
 descBodyValidation.classList.add('hidden');
@@ -40,7 +49,7 @@ noteTitle.addEventListener('input', () => {
   }
   });
 
-noteTitle.addEventListener('blur', () => {
+noteTitle.addEventListener('blur', ()=>{
   clearTitleWarning(3000);
 });
 
@@ -48,10 +57,12 @@ noteBody.addEventListener('focus', ()=>{
   addBodyWarning();
 })
 
-noteBody.addEventListener('input', () => {
+noteBody.addEventListener('input', ()=>{
+  const remainTime = document.querySelector('.remain-time');
   const body = noteBody.value.trim();
   if (body.length < bodyValidation) {
     addBodyWarning();
+    remainTime.textContent = `(${Math.max(0, bodyValidation - body.length)} karakter lagi)`;
     noteBody.classList.remove('passed');
   } else {
     clearBodyWarning(0);
@@ -59,13 +70,12 @@ noteBody.addEventListener('input', () => {
   }
 });
 
-noteBody.addEventListener('blur', () => {
+noteBody.addEventListener('blur', ()=>{
   clearBodyWarning(3000);
 });
 
-
 //form validation
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e)=>{
   e.preventDefault();
 
   const title = noteTitle.value.trim();
@@ -77,21 +87,21 @@ form.addEventListener('submit', (e) => {
         descTitleValidation.classList.remove('hidden');
         noteBody.classList.add('warning');
         descBodyValidation.classList.remove('hidden');
-        showPopup('Kok kosong icibos?', 'error');
+        showPopup('Isi catatan terlebih dahulu', 'error');
 
         clearBodyWarning(3000);
         clearTitleWarning(3000);
         return;
      }else if (!title){
         noteTitle.classList.add('warning');
-        showPopup('Woilah cik, judulnya ketinggalan', 'error');
+        showPopup('Judul catatan belum diisi', 'error');
 
         clearTitleWarning(3000);
         return;
     } else{
         noteBody.classList.add('warning');
         descBodyValidation.classList.remove('hidden');
-        showPopup('Bete gw, isi catatan harus punya minimal 10 karakter!', 'error');
+        showPopup('Isi catatan harus mengandung minimal 10 karakter', 'error');
 
         clearBodyWarning(3000);
         return;
@@ -110,9 +120,8 @@ form.addEventListener('submit', (e) => {
   noteList.setNoteList(notes);
 
   showPopup('Horeee, Catatanmu berhasil disimpan!', 'success');
+  clearAllTrigger();
+
   form.reset();
 });
-
-
-
 

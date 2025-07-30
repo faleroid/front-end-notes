@@ -75,7 +75,7 @@ class MyForm extends HTMLElement{
         }
 
         form .passed{
-            border-bottom: 2px solid var(--yellowColor);
+            border-bottom: 1px solid var(--yellowColor);
         }
 
         form .hidden{
@@ -138,7 +138,7 @@ class MyForm extends HTMLElement{
             <div class="form-group">
                 <label for="noteBody"><span class="redBold">*</span> Isi Catatan</label>
                 <textarea id="noteBody" name="noteBody" minlength="10" aria-describedby="bodyValidation" required></textarea>
-                <p id="bodyValidation">Minimal 10 Karakter</p>
+                <p id="bodyValidation">Minimal 10 Karakter <span class="remain-time"></span></p>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn">Simpan</button>
