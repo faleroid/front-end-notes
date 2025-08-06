@@ -1,35 +1,95 @@
-import '../components/myTitle.js';
-import '../components/myForm.js';
-import '../components/popUp.js';
-import '../components/noteItem.js';
-import '../components/notes.js';
-import '../components/myFooter.js';
-import { notesData } from '../utils/notesData.js';
+import { getAllNotes, createNote } from '../handler/notesHandler.js'; 
+
+import '../components/elements/myTitle.js';
+import '../components/elements/myForm.js';
+import '../components/elements/popUp.js';
+import '../components/elements/noteItem.js';
+import '../components/elements/notesList.js';
+import '../components/elements/myFooter.js';
+import '../components/attributes/footerColor.js';
+// import { notesData } from '../utils/notesData.js';
 import { showPopup } from './showPopUp.js';
 import { clearBodyWarning, clearTitleWarning, addBodyWarning, addTitleWarning, clearAllTrigger} from './formValidations.js';
+import { footerColor } from '../components/attributes/footerColor.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const myFooter = document.querySelector('my-footer');
-  if (myFooter) {
-    myFooter.setAttribute('footer-color', 'gray');
+document.addEventListener('DOMContentLoaded', async () => {
+  const form = document.getElementById('noteForm');
+  const noteList = document.querySelector('note-list');
+
+  const noteTitle = document.getElementById('noteTitle');
+  const descTitleValidation = document.getElementById('titleValidation');
+
+  const noteBody = document.getElementById('noteBody');
+  const bodyValidation = parseInt(noteBody.getAttribute('minlength'));
+  const descBodyValidation = document.getElementById('bodyValidation');
+
+  descTitleValidation.classList.add('hidden');
+  descBodyValidation.classList.add('hidden');
+
+  footerColor('gray');
+
+  try {
+    const notes = await getAllNotes();
+    noteList.setNoteList(notes);
+  } catch (error) {
+    showPopup('Gagal menampilkan catatan', 'error');
+    console.error(error);
+  }
+
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const title = noteTitle.value.trim();
+  const body = noteBody.value.trim();
+  if (!title || body.length < bodyValidation){
+     if(!title && body.length < bodyValidation){
+        noteTitle.classList.add('warning');
+        descTitleValidation.classList.remove('hidden');
+        noteBody.classList.add('warning');
+        descBodyValidation.classList.remove('hidden');
+        showPopup('Isi catatan terlebih dahulu', 'error');
+
+        clearBodyWarning(3000);
+        clearTitleWarning(3000);
+        return;
+     }else if (!title){
+        noteTitle.classList.add('warning');
+        showPopup('Judul catatan belum diisi', 'error');
+
+        clearTitleWarning(3000);
+        return;
+    } else{
+        noteBody.classList.add('warning');
+        descBodyValidation.classList.remove('hidden');
+        showPopup('Isi catatan harus mengandung minimal 10 karakter', 'error');
+
+        clearBodyWarning(3000);
+        return;
+    }
+  }
+
+  const newNote = {
+    id: `note-${Date.now()}`,
+    title,
+    body,
+    createdAt: new Date().toISOString(),
+    archived: false,
+  };
+
+  try {
+    await createNote(newNote);
+    const notes = await getAllNotes();
+    noteList.setNoteList(notes);
+
+    showPopup('Horeee, Catatanmu berhasil disimpan!', 'success');
+    clearAllTrigger();
+    form.reset();
+  } catch (error) {
+    showPopup('Gagal menyimpan catatan ke server', 'error');
+    console.error(error);
   }
 });
-
-let notes = [...notesData];
-const noteList = document.querySelector('note-list');
-noteList.setNoteList(notesData);
-
-const form = document.getElementById('noteForm');
-
-const noteTitle = document.getElementById('noteTitle');
-const descTitleValidation = document.getElementById('titleValidation');
-
-const noteBody = document.getElementById('noteBody');
-const descBodyValidation = document.getElementById('bodyValidation');
-const bodyValidation = parseInt(noteBody.getAttribute('minlength'));
-
-descTitleValidation.classList.add('hidden');
-descBodyValidation.classList.add('hidden');
 
 noteTitle.addEventListener('focus', () => {
   const title = noteTitle.value.trim();
@@ -74,54 +134,4 @@ noteBody.addEventListener('blur', ()=>{
   clearBodyWarning(3000);
 });
 
-//form validation
-form.addEventListener('submit', (e)=>{
-  e.preventDefault();
-
-  const title = noteTitle.value.trim();
-  const body = noteBody.value.trim();
-
-  if (!title || body.length < bodyValidation){
-     if(!title && body.length < bodyValidation){
-        noteTitle.classList.add('warning');
-        descTitleValidation.classList.remove('hidden');
-        noteBody.classList.add('warning');
-        descBodyValidation.classList.remove('hidden');
-        showPopup('Isi catatan terlebih dahulu', 'error');
-
-        clearBodyWarning(3000);
-        clearTitleWarning(3000);
-        return;
-     }else if (!title){
-        noteTitle.classList.add('warning');
-        showPopup('Judul catatan belum diisi', 'error');
-
-        clearTitleWarning(3000);
-        return;
-    } else{
-        noteBody.classList.add('warning');
-        descBodyValidation.classList.remove('hidden');
-        showPopup('Isi catatan harus mengandung minimal 10 karakter', 'error');
-
-        clearBodyWarning(3000);
-        return;
-    }
-  }
-
-  const newNote = {
-    id: `note-${Date.now()}`,
-    title,
-    body,
-    createdAt: new Date().toISOString(),
-    archived: false,
-  };
-
-  notes.unshift(newNote);
-  noteList.setNoteList(notes);
-
-  showPopup('Horeee, Catatanmu berhasil disimpan!', 'success');
-  clearAllTrigger();
-
-  form.reset();
 });
-
