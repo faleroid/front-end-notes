@@ -3,8 +3,13 @@ import { NotesEndPoint } from '../api/notesApi.js'
 export const getAllNotes = async () => {
   try {
     const response = await fetch(NotesEndPoint.GET_ALL);
-    const responesJson = await response.json();
-    return responesJson;
+    const responseJson = await response.json();
+
+    if (responseJson.data) {
+      responseJson.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    return responseJson;
   } catch (error) {
     throw error;
   }
