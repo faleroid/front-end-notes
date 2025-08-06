@@ -1,5 +1,4 @@
 import { getAllNotes, createNote } from '../handler/notesHandler.js'; 
-
 import '../components/elements/myTitle.js';
 import '../components/elements/myForm.js';
 import '../components/elements/popUp.js';
@@ -7,7 +6,6 @@ import '../components/elements/noteItem.js';
 import '../components/elements/notesList.js';
 import '../components/elements/myFooter.js';
 import '../components/attributes/footerColor.js';
-// import { notesData } from '../utils/notesData.js';
 import { showPopup } from './showPopUp.js';
 import { clearBodyWarning, clearTitleWarning, addBodyWarning, addTitleWarning, clearAllTrigger} from './formValidations.js';
 import { footerColor } from '../components/attributes/footerColor.js';
@@ -29,8 +27,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   footerColor('gray');
 
   try {
-    const notes = await getAllNotes();
-    noteList.setNoteList(notes);
+    const response = await getAllNotes(); 
+    console.log('Respons mentah dari API:', response); 
+    noteList.setNoteList(response.data); 
   } catch (error) {
     showPopup('Gagal menampilkan catatan', 'error');
     console.error(error);
@@ -70,17 +69,14 @@ form.addEventListener('submit', async (e) => {
   }
 
   const newNote = {
-    id: `note-${Date.now()}`,
     title,
     body,
-    createdAt: new Date().toISOString(),
-    archived: false,
   };
 
   try {
     await createNote(newNote);
-    const notes = await getAllNotes();
-    noteList.setNoteList(notes);
+    const response = await getAllNotes();
+    noteList.setNoteList(response.data);
 
     showPopup('Horeee, Catatanmu berhasil disimpan!', 'success');
     clearAllTrigger();
@@ -133,5 +129,4 @@ noteBody.addEventListener('input', ()=>{
 noteBody.addEventListener('blur', ()=>{
   clearBodyWarning(3000);
 });
-
 });

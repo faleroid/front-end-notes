@@ -73,8 +73,10 @@ class NoteList extends HTMLElement {
 
     this._wrapper.className = 'notes';
     this._wrapper.innerHTML = '';
+
+    const notes = this._showAll ? this._noteList : this._noteList.slice(0, 4);
     
-    this._noteList.forEach((item) => {
+    notes.forEach((item) => {
       const note = document.createElement('note-item');
       note.setNote(item);
       this._wrapper.appendChild(note);
