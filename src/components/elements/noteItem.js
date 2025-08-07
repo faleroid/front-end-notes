@@ -7,6 +7,7 @@ class NoteItem extends HTMLElement {
       title: 'NEED_TITLE',
       body: 'NEED_BODY_PAYLOAD',
       createdAt: new Date().toISOString(),
+      archived: false,
     };
 
     this._style = document.createElement('style');
@@ -19,6 +20,7 @@ class NoteItem extends HTMLElement {
       title: value.title,
       body: value.body,
       createdAt: value.createdAt,
+      archived: value.archived,
     };
 
     this.render();
@@ -85,6 +87,99 @@ class NoteItem extends HTMLElement {
       .note-item:hover time{
         color: var(--yellowColor);
       }
+
+    .modal-overlay {
+      position: fixed; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: tranparent; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal-content {
+    box-sizing: border-box;
+      padding: 20px 85px;
+      font-family: var(--fontPar);
+      background-color: #191919;
+      color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 0.2fr 1fr 0.1fr;
+      grid-template-areas:
+      'modalTitle . modalDate'
+      'modalBody modalBody modalBody'
+      '. . closeModalBtn'
+      ;
+      gap: 10px;
+    }
+
+    #modalTitle{
+      grid-area: modalTitle;
+      font-size: 45px;
+      align-self: center;
+    }
+
+    #modalBody{
+      grid-area: modalBody;
+      text-align: left;
+    }
+
+    #modalDate{
+      grid-area: modalDate;
+      justify-self: end;
+      align-self: center;
+      font-size: 14px;
+      color: gray;
+    }
+
+    #closeModalBtn{
+      grid-area: closeModalBtn;
+      width: fit-content;
+      padding: 10px 8px;
+      font-size: 14px;
+      background-color: var(--yellowColor);
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      justify-self: end; 
+      align-self: center;
+    }
+
+    @media (max-width: 575px){
+      .modal-content{
+        padding: 30px;
+        grid-template-rows: 0.001fr 0.01fr 1fr 0.1fr;
+        grid-template-areas:
+        'modalTitle modalTitle modalTitle'
+        'modalDate modalDate .'
+        'modalBody modalBody modalBody'
+        '. . closeModalBtn'
+        ;
+      } 
+
+      #modalTitle{
+        font-size: 28px;
+      }
+
+      #modalDate{
+        justify-self: start;
+        font-size: 12px;
+      }
+    }
+
     `;
   }
 
@@ -110,6 +205,14 @@ class NoteItem extends HTMLElement {
       <p>${this._notes.body}</p>
       <time><p>${formattedDate}</p> <p>${formattedTime}</p></time>
     `;
+
+    this._container.addEventListener('click', () => {
+      const event = new CustomEvent('note-clicked', {
+          detail: { noteId: this._notes.id },
+          bubbles: true,
+        });
+      this.dispatchEvent(event);
+    });
 
     this.innerHTML = '';
     this.append(this._style, this._container);

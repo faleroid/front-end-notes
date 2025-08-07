@@ -1,4 +1,8 @@
-import { getAllNotes, createNote } from '../handler/notesHandler.js'; 
+import {
+  getAllNotes,
+  createNote,
+  getSingleNote,
+} from '../handler/notesHandler.js'; 
 import '../components/elements/myTitle.js';
 import '../components/elements/myForm.js';
 import '../components/elements/popUp.js';
@@ -7,10 +11,19 @@ import '../components/elements/notesList.js';
 import '../components/elements/myFooter.js';
 import '../components/attributes/footerColor.js';
 import { showPopup } from './showPopUp.js';
-import { clearBodyWarning, clearTitleWarning, addBodyWarning, addTitleWarning, clearAllTrigger} from './formValidations.js';
+import {
+  clearBodyWarning,
+  clearTitleWarning,
+  addBodyWarning,
+  addTitleWarning,
+  clearAllTrigger,
+} from './formValidations.js';
 import { footerColor } from '../components/attributes/footerColor.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const noteDetailModal = document.getElementById('noteDetailModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  
   const form = document.getElementById('noteForm');
   const noteList = document.querySelector('note-list');
 
@@ -28,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const response = await getAllNotes(); 
-    console.log('Respons mentah dari API:', response); 
+    console.log(`LOG:`, response.data); 
     noteList.setNoteList(response.data); 
   } catch (error) {
     showPopup('Gagal menampilkan catatan', 'error');
@@ -86,6 +99,44 @@ form.addEventListener('submit', async (e) => {
     console.error(error);
   }
 });
+
+ noteList.addEventListener('note-clicked', async (event) => {
+    const { noteId } = event.detail;
+    closeModalBtn.classList.remove('hidden');
+
+    try {
+      const response = await getSingleNote(noteId);
+      if (response.data) {
+        showNoteDetail(response.data);
+      }
+    } catch (error) {
+      console.error('Gagal mengambil detail catatan:', error);
+      showPopup('Gagal menampilkan detail', 'error');
+    }
+  });
+
+  const showNoteDetail = (note) => {
+    document.getElementById('modalTitle').textContent = note.title;
+    document.getElementById('modalBody').textContent = note.body;
+    
+    const noteDate = new Date(note.createdAt).toLocaleString('id-ID', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+    });
+    document.getElementById('modalDate').textContent = `${noteDate}`;
+
+    noteDetailModal.classList.remove('hidden');
+  };
+
+  closeModalBtn.addEventListener('click', () => {
+    noteDetailModal.classList.add('hidden');
+  });
+
+  noteDetailModal.addEventListener('click', (event) => {
+    if (event.target === noteDetailModal) {
+      noteDetailModal.classList.add('hidden');
+    }
+  });
 
 noteTitle.addEventListener('focus', () => {
   const title = noteTitle.value.trim();

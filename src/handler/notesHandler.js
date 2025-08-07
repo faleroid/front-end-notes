@@ -38,3 +38,28 @@ export const createNote = async (note) => {
     throw error;
   }
 };
+
+export const getNotesArchived = async () => {
+    try{
+        const response = await fetch(NotesEndPoint.GET_ARCHIVED);
+        const responseJson = await response.json();
+
+        if (responseJson.data) {
+        responseJson.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        }
+
+        return responseJson;
+    } catch(error){
+        throw(error);
+    }
+};
+
+export const getSingleNote = async (id) => {
+  try {
+    const response = await fetch(NotesEndPoint.GET_SINGLE(id));
+    const responseJson = await response.json();
+    return responseJson;
+  } catch (error) {
+    throw error;
+  }
+};

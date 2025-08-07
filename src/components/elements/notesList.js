@@ -85,7 +85,6 @@ class NoteList extends HTMLElement {
     this._header.className = 'notes-header';
     this._header.textContent = `Catatanmu (${this._noteList.length})`;
 
-    // Update button
     this._button.className = 'show-more-btn';
     this._button.textContent = this._showAll ? 'Tampilkan Lebih Sedikit' : 'Lihat Semua Catatan';
 
