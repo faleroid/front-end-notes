@@ -39,25 +39,71 @@ export const createNote = async (note) => {
   }
 };
 
-export const getNotesArchived = async () => {
-    try{
-        const response = await fetch(NotesEndPoint.GET_ARCHIVED);
-        const responseJson = await response.json();
-
-        if (responseJson.data) {
-        responseJson.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        }
-
-        return responseJson;
-    } catch(error){
-        throw(error);
-    }
-};
-
 export const getSingleNote = async (id) => {
   try {
     const response = await fetch(NotesEndPoint.GET_SINGLE(id));
     const responseJson = await response.json();
+    return responseJson;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getArchivedNotes = async () => {
+  try {
+    const response = await fetch(NotesEndPoint.GET_ARCHIVED);
+    const responseJson = await response.json();
+
+    if (responseJson.data) {
+      responseJson.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    return responseJson;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const archiveNote = async (id) => {
+  try {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': '12345',
+      },
+    };
+
+    const response = await fetch(NotesEndPoint.ARCHIVE(id), options); 
+    const responseJson = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseJson.message);
+    }
+
+    return responseJson;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const unarchiveNote = async (id) => {
+  try {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': '12345',
+      },
+    };
+
+    const response = await fetch(NotesEndPoint.UNARCHIVE(id), options);
+    const responseJson = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseJson.message);
+    }
+
     return responseJson;
   } catch (error) {
     throw error;

@@ -117,32 +117,54 @@ class NoteItem extends HTMLElement {
       height: 100vh;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 0.2fr 1fr 0.1fr;
+      grid-template-rows: 0.1fr 1fr 0.1fr 0.1fr;
       grid-template-areas:
-      'modalTitle . modalDate'
+      'modalTitle modalTitle modalDate'
       'modalBody modalBody modalBody'
+      '. . archiveBtn'
       '. . closeModalBtn'
       ;
       gap: 10px;
     }
 
     #modalTitle{
+      line-height: 55px;
       grid-area: modalTitle;
       font-size: 45px;
-      align-self: center;
+      align-self: top;
+      border-bottom: 2px solid var(--redColor);
+      padding-bottom: 7px;
+      padding-top: 8px;
+      width: fit-content;
     }
 
     #modalBody{
       grid-area: modalBody;
       text-align: left;
+      padding-top: 30px;
     }
 
     #modalDate{
+      padding-top: 20px;
       grid-area: modalDate;
       justify-self: end;
-      align-self: center;
+      align-self: top;
       font-size: 14px;
       color: gray;
+    }
+
+    #archiveBtn{
+      grid-area: archiveBtn;
+      color: var(--yellowColor);
+      width: fit-content;
+      padding: 10px 8px;
+      font-size: 14px;
+      background-color: #191919;
+      border-radius: 7px;
+      border: 1px solid var(--yellowColor);
+      cursor: pointer;
+      justify-self: end; 
+      align-self: center;
     }
 
     #closeModalBtn{
@@ -158,25 +180,41 @@ class NoteItem extends HTMLElement {
       align-self: center;
     }
 
-    @media (max-width: 575px){
+    @media (max-width: 763px){
       .modal-content{
-        padding: 30px;
-        grid-template-rows: 0.001fr 0.01fr 1fr 0.1fr;
+        mih-height: 95vh;
+        height: auto;
+        padding: 45px 30px;
+        grid-template-rows: 0.1fr 0.01fr 1fr 0.1fr;
         grid-template-areas:
         'modalTitle modalTitle modalTitle'
-        'modalDate modalDate .'
+        'modalDate modalDate modalDate'
         'modalBody modalBody modalBody'
         '. . closeModalBtn'
         ;
       } 
 
       #modalTitle{
-        font-size: 28px;
+        font-size: 32px;
+        line-height: 35px;
+        padding-bottom: 0;
       }
 
       #modalDate{
+        padding-top: 0;
         justify-self: start;
-        font-size: 12px;
+        font-size: 14px;
+      }
+
+      #modalBody{
+        align-self: top;
+        font-size: 18px;
+        padding-top: 20px;
+      }
+
+      #closeModalBtn{
+        font-size: 16px;
+        padding: 10px;
       }
     }
 

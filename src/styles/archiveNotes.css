@@ -1,0 +1,41 @@
+:root {
+  --redColor: #CC0000;
+  --whiteColor: rgb(229 236 246);
+  --yellowColor: #FFDC13;
+  --fontHead: 'Oswald', sans-serif;
+  --fontPar: 'Poppins', sans-serif;
+}
+
+.yellowBold{
+    font-weight: bold;
+    color: var(--yellowColor);
+}
+
+.redBold{
+    font-weight: bold;
+    color: var(--redColor);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+header{
+    width: 100%;
+    height: fit-content;
+}
+
+body{
+    background-color: #101010;
+    background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+}
+
+main{
+    padding: 5px 60px 40px 60px;
+    min-height: 83vh;
+}

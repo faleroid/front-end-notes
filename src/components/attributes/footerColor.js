@@ -1,6 +1,7 @@
-export const footerColor = (color) => { 
-    const myFooter = document.querySelector('my-footer');
-    if (myFooter) {
-      myFooter.setAttribute('footer-color', `${color}`);
-    }
-}
+export const footerColor = (color) => {
+  const footerElement = document.querySelector('my-footer');
+
+  if (footerElement) {
+    footerElement.setAttribute('footer-color', color);
+  }
+};

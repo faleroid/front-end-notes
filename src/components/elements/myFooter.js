@@ -15,10 +15,12 @@ class MyFooter extends HTMLElement{
         this._style.textContent = 
         `
         ${this.localName} p{
-            border-top: 2px solid black;
+            font-family: var(--fontPar);
+            border-top: 1px solid black;
             padding: 20px;
             color: ${this._footerColor};
             font-size: 12px;
+            text-align: center;
         }
         `
     }

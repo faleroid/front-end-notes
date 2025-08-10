@@ -25,7 +25,14 @@ html, body {
   overflow-x: hidden;
 }
 
+header{
+    width: 100%;
+    height: fit-content;
+}
+
 body{
+    scrollbar-width: thin;
+    scrollbar-color: var(--yellowColor) #2c2c2c;
     background-color: #101010;
     background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
 }
@@ -46,6 +53,11 @@ main-title{
     grid-area: main-title;
 }
 
+
+archiveNotes{
+    grid-area: archive;
+}
+
 my-form{
     grid-area: form;
 }
@@ -60,6 +72,10 @@ note-list{
     'notes notes notes'
     'btn-more btn-more .';
     gap: 10px;
+}
+
+.hidden{
+    display: none;
 }
 
 @media (max-width: 575px){
