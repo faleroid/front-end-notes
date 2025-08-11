@@ -88,8 +88,8 @@
     "yocto-queue": "^0.1.0"
   },
   "scripts": {
-    "dev": "webpack serve --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "start-dev": "webpack serve --config webpack.dev.js",
+    "start-prod": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
