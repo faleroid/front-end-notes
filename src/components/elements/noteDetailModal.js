@@ -175,6 +175,10 @@ class NoteDetailModal extends HTMLElement {
         .hidden {
         display: none;
         }
+
+        @media (max-width: 575px){
+          
+        }
     `;
   }
 

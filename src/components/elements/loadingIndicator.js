@@ -1,3 +1,5 @@
+import '../../styles/loadingIndicator.css';
+
 class LoadingIndicator extends HTMLElement {
   constructor() {
     super();

@@ -44,10 +44,33 @@ class MyHeader extends HTMLElement {
             text-decoration: none;
             grid-area: textArchive;
             justify-self: start;
+            width: fit-content;
         }
 
         .navbar-container a.main:hover,  .navbar-container a.archive:hover{
             color: var(--yellowColor);
+        }
+
+        @media (max-width: 600px){
+            .navbar-container{
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-areas: 
+                'textMain textMain textArchive textArchive ';
+                padding: 15px;
+                gap: 30px;
+            }
+
+            .navbar-container a.main, .navbar-container a.archive {
+                font-size: 12px;
+            }
+
+            .navbar-container a.main{
+                justify-self: end;
+            }
+
+            .navbar-container a.archive{
+                justify-self: start;
+            }
         }
         `;
   }

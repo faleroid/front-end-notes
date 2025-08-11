@@ -1,4 +1,5 @@
-import '../styles/style.css';
+import '../styles/archiveNotes.css';
+
 import {
   getArchivedNotes,
   getSingleNote,
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } catch (error) {
       showPopup('Gagal menampilkan detail', 'error');
+      console.error(error);
     } finally {
       loadingIndicator.hide();
     }
@@ -60,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       await showAllArchivedNotes();
     } catch (error) {
       showPopup('Gagal mengembalikan catatan', 'error');
+      console.error(error);
     } finally {
       loadingIndicator.hide();
     }

@@ -40,7 +40,6 @@ class ArchiveNotes extends HTMLElement {
         font-size: 22px;
         color: var(--whiteColor, white);
         padding-bottom: 5px;
-        margin-bottom: 1rem;
       }
 
       note-item{
@@ -59,6 +58,11 @@ class ArchiveNotes extends HTMLElement {
       @media (max-width: 575px) {
         .archive-note-list {
           grid-template-columns: 1fr;
+          grid-template-areas: 'textNotes';
+        }
+
+        .archive-header{
+          font-size: 20px;
         }
       }
     `;

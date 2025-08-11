@@ -9,7 +9,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
-    clean: true,
   },
   module: {
     rules: [
@@ -41,12 +40,4 @@ module.exports = {
       chunks: ['archive'],
     }),
   ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
-    compress: true,
-    port: 9000,
-    open: true,
-  },
 };
