@@ -61,7 +61,7 @@ class MyHeader extends HTMLElement {
             }
 
             .navbar-container a.main, .navbar-container a.archive {
-                font-size: 12px;
+                font-size: 14px;
             }
 
             .navbar-container a.main{
