@@ -12,13 +12,13 @@ class ArchiveNotes extends HTMLElement {
     this.render();
   }
 
-    /**
+  /**
    * @param {Array} notes
    */
 
   setArchivedNotes(notes) {
     this._archivedNotes = notes;
-    
+
     this.render();
   }
 
@@ -66,7 +66,7 @@ class ArchiveNotes extends HTMLElement {
 
   render() {
     this.innerHTML = '';
-    
+
     this.updateStyle();
     this.appendChild(this._style);
 
@@ -79,7 +79,7 @@ class ArchiveNotes extends HTMLElement {
     container.appendChild(header);
 
     if (this._archivedNotes.length > 0) {
-      this._archivedNotes.forEach(note => {
+      this._archivedNotes.forEach((note) => {
         const noteItem = document.createElement('note-item');
         noteItem.setNote(note);
         container.appendChild(noteItem);

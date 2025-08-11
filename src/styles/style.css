@@ -1,9 +1,9 @@
 :root {
-  --redColor: #CC0000;
-  --whiteColor: rgb(229 236 246);
-  --yellowColor: #FFDC13;
-  --fontHead: 'Oswald', sans-serif;
-  --fontPar: 'Poppins', sans-serif;
+    --redColor: #CC0000;
+    --whiteColor: rgb(229 236 246);
+    --yellowColor: #FFDC13;
+    --fontHead: 'Oswald', sans-serif;
+    --fontPar: 'Poppins', sans-serif;
 }
 
 .yellowBold{

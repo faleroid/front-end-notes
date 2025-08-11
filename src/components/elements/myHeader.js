@@ -1,17 +1,16 @@
-class MyHeader extends HTMLElement{
-    constructor(){
-        super();
+class MyHeader extends HTMLElement {
+  constructor() {
+    super();
 
-        this._style = document.createElement('style');
-    }
+    this._style = document.createElement('style');
+  }
 
-    connectedCallback(){
-        this.render();
-    }
+  connectedCallback() {
+    this.render();
+  }
 
-    updateStyle(){
-        this._style.textContent = 
-        `
+  updateStyle() {
+    this._style.textContent = `
        .navbar-container{
             padding: 20px;
             background-color: #191919;
@@ -50,21 +49,20 @@ class MyHeader extends HTMLElement{
         .navbar-container a.main:hover,  .navbar-container a.archive:hover{
             color: var(--yellowColor);
         }
-        `
-    }
+        `;
+  }
 
-    render(){
-        this.innerHTML = 
-        `
+  render() {
+    this.innerHTML = `
         <div class="navbar-container">
             <a class="main" href="/index.html">Beranda</a>
             <a class="archive" href="/archiveNotes.html">Arsip Kamu</a>
         </div>
-        `
+        `;
 
-        this.updateStyle();
-        this.append(this._style);
-    }
+    this.updateStyle();
+    this.append(this._style);
+  }
 }
 
 customElements.define('my-header', MyHeader);

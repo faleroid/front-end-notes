@@ -75,7 +75,7 @@ class NoteList extends HTMLElement {
     this._wrapper.innerHTML = '';
 
     const notes = this._showAll ? this._noteList : this._noteList.slice(0, 4);
-    
+
     notes.forEach((item) => {
       const note = document.createElement('note-item');
       note.setNote(item);
@@ -86,7 +86,9 @@ class NoteList extends HTMLElement {
     this._header.textContent = `Catatanmu (${this._noteList.length})`;
 
     this._button.className = 'show-more-btn';
-    this._button.textContent = this._showAll ? 'Tampilkan Lebih Sedikit' : 'Lihat Semua Catatan';
+    this._button.textContent = this._showAll
+      ? 'Tampilkan Lebih Sedikit'
+      : 'Lihat Semua Catatan';
 
     this.innerHTML = '';
     this.append(this._style, this._header, this._wrapper, this._button);

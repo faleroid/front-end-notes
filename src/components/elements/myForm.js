@@ -1,17 +1,16 @@
-class MyForm extends HTMLElement{
-    constructor(){
-        super();
+class MyForm extends HTMLElement {
+  constructor() {
+    super();
 
-        this._style = document.createElement('style');
-    }
+    this._style = document.createElement('style');
+  }
 
-    connectedCallback(){
-        this.render();
-    }
+  connectedCallback() {
+    this.render();
+  }
 
-    updateStyle(){
-        this._style.textContent =
-        `
+  updateStyle() {
+    this._style.textContent = `
         form{
             display: grid;
             grid-template-rows: auto;
@@ -122,12 +121,11 @@ class MyForm extends HTMLElement{
                 width: 92%;
             }
         }
-        `
-    }
+        `;
+  }
 
-    render(){
-        this.innerHTML = 
-        `
+  render() {
+    this.innerHTML = `
         <form id="noteForm" novalidate>
             <span class="form-title"><h2>Yuk, Mau Nyatet Apa?</h2></span>
             <div class="form-group">
@@ -146,9 +144,9 @@ class MyForm extends HTMLElement{
         </form>
         `;
 
-        this.updateStyle();
-        this.append(this._style);
-    }
+    this.updateStyle();
+    this.append(this._style);
+  }
 }
 
 customElements.define('my-form', MyForm);

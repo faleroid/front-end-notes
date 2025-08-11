@@ -1,8 +1,10 @@
+import '../styles/style.css';
 import {
   getAllNotes,
   createNote,
   getSingleNote,
   archiveNote,
+  deleteNote,
 } from '../handler/notesHandler.js';
 import '../components/elements/myTitle.js';
 import '../components/elements/myForm.js';
@@ -12,7 +14,7 @@ import '../components/elements/notesList.js';
 import '../components/elements/myFooter.js';
 import '../components/elements/myHeader.js';
 import '../components/elements/noteDetailModal.js';
-import { footerColor } from '../components/attributes/footerColor.js';
+import '../components/elements/loadingIndicator.js';
 import { showPopup } from './showPopUp.js';
 import {
   clearBodyWarning,
@@ -23,6 +25,7 @@ import {
 } from './formValidations.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const loadingIndicator = document.querySelector('loading-indicator');
   const noteDetailModal = document.querySelector('note-detail-modal');
   const form = document.getElementById('noteForm');
   const noteList = document.querySelector('note-list');
@@ -31,9 +34,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const noteBody = document.getElementById('noteBody');
   const bodyValidation = parseInt(noteBody.getAttribute('minlength'));
   const descBodyValidation = document.getElementById('bodyValidation');
-  const viewArchiveBtn = document.getElementById('viewArchiveBtn');
-
-  footerColor('gray');
 
   if (descTitleValidation && descBodyValidation) {
     descTitleValidation.classList.add('hidden');
@@ -41,12 +41,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   const showAllNotes = async () => {
+    loadingIndicator.show();
     try {
       const response = await getAllNotes();
       noteList.setNoteList(response.data);
     } catch (error) {
       showPopup('Gagal menampilkan catatan', 'error');
       console.error(error);
+    } finally {
+      loadingIndicator.hide();
     }
   };
 
@@ -54,6 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   noteDetailModal.addEventListener('archive-note-clicked', async (event) => {
     const { noteId } = event.detail;
+    loadingIndicator.show();
     try {
       await archiveNote(noteId);
       showPopup('Catatan berhasil diarsipkan!', 'success');
@@ -62,6 +66,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       showPopup('Gagal mengarsipkan catatan', 'error');
       console.error(error);
+    } finally {
+      loadingIndicator.hide();
+    }
+  });
+
+  noteDetailModal.addEventListener('delete-note-clicked', async (event) => {
+    const { noteId } = event.detail;
+    loadingIndicator.show();
+    try {
+      await deleteNote(noteId);
+      showPopup('Catatan berhasil dihapus!', 'success');
+      noteDetailModal.close();
+      await showAllNotes();
+    } catch (error) {
+      showPopup('Gagal menghapus catatan', 'error');
+      console.error(error);
+    } finally {
+      loadingIndicator.hide();
     }
   });
 
@@ -94,6 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const newNote = { title, body };
 
+    loadingIndicator.show();
     try {
       await createNote(newNote);
       await showAllNotes();
@@ -103,11 +126,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       showPopup('Gagal menyimpan catatan ke server', 'error');
       console.error(error);
+    } finally {
+      loadingIndicator.hide();
     }
   });
 
   noteList.addEventListener('note-clicked', async (event) => {
     const { noteId } = event.detail;
+    loadingIndicator.show();
     try {
       const response = await getSingleNote(noteId);
       if (response.data) {
@@ -116,6 +142,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       console.error('Gagal mengambil detail catatan:', error);
       showPopup('Gagal menampilkan detail', 'error');
+    } finally {
+      loadingIndicator.hide();
     }
   });
 
@@ -149,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (remainTime) {
         remainTime.textContent = `(${Math.max(
           0,
-          bodyValidation - body.length,
+          bodyValidation - body.length
         )} karakter lagi)`;
       }
       noteBody.classList.remove('passed');

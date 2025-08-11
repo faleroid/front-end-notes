@@ -4,7 +4,7 @@ export function showPopup(message, type) {
 
   popup.textContent = message;
 
-  popup.classList.remove("error", "success");
+  popup.classList.remove('error', 'success');
   popup.classList.add(type);
   popup.classList.add('show');
 

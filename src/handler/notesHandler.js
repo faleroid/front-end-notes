@@ -1,4 +1,4 @@
-import { NotesEndPoint } from '../api/notesApi.js'
+import { NotesEndPoint } from '../api/notesApi.js';
 
 export const getAllNotes = async () => {
   try {
@@ -6,7 +6,9 @@ export const getAllNotes = async () => {
     const responseJson = await response.json();
 
     if (responseJson.data) {
-      responseJson.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      responseJson.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
     }
 
     return responseJson;
@@ -55,7 +57,9 @@ export const getArchivedNotes = async () => {
     const responseJson = await response.json();
 
     if (responseJson.data) {
-      responseJson.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      responseJson.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
     }
 
     return responseJson;
@@ -74,7 +78,7 @@ export const archiveNote = async (id) => {
       },
     };
 
-    const response = await fetch(NotesEndPoint.ARCHIVE(id), options); 
+    const response = await fetch(NotesEndPoint.ARCHIVE(id), options);
     const responseJson = await response.json();
 
     if (!response.ok) {
@@ -105,6 +109,29 @@ export const unarchiveNote = async (id) => {
     }
 
     return responseJson;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteNote = async (id) => {
+  try {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': '12345',
+      },
+    };
+
+    const response = await fetch(NotesEndPoint.DELETE(id), options);
+
+    if (!response.ok) {
+      const responseJson = await response.json();
+      throw new Error(responseJson.message);
+    }
+
+    return Promise.resolve();
   } catch (error) {
     throw error;
   }

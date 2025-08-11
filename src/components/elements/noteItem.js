@@ -246,9 +246,9 @@ class NoteItem extends HTMLElement {
 
     this._container.addEventListener('click', () => {
       const event = new CustomEvent('note-clicked', {
-          detail: { noteId: this._notes.id },
-          bubbles: true,
-        });
+        detail: { noteId: this._notes.id },
+        bubbles: true,
+      });
       this.dispatchEvent(event);
     });
 

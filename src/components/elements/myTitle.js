@@ -1,18 +1,16 @@
-class MyTitle extends HTMLElement{
+class MyTitle extends HTMLElement {
+  constructor() {
+    super();
 
-    constructor(){
-        super();
+    this._style = document.createElement('style');
+  }
 
-        this._style = document.createElement('style');
-    }
+  connectedCallback() {
+    this.render();
+  }
 
-    connectedCallback(){
-        this.render();
-    }
-
-    updateStyle(){
-        this._style.textContent =
-        `
+  updateStyle() {
+    this._style.textContent = `
         h1{
             padding: 20px;
             color: var(--whiteColor);
@@ -33,19 +31,18 @@ class MyTitle extends HTMLElement{
                 font-size: 12px;
             }
         }
-        `
-    }
+        `;
+  }
 
-    render(){
-        this.innerHTML = 
-        `
+  render() {
+    this.innerHTML = `
         <h1>The <span class="redBold">#Dear</span>y</h1>
         <p>When The faintest ink is <span class="yellowBold">more powerful</span>  than the strongest memory.</p>
         `;
-        
-        this.updateStyle();
-        this.append(this._style)
-    }
+
+    this.updateStyle();
+    this.append(this._style);
+  }
 }
 
-customElements.define('main-title', MyTitle)
+customElements.define('main-title', MyTitle);

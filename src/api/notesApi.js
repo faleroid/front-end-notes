@@ -7,5 +7,5 @@ export const NotesEndPoint = {
   GET_SINGLE: (id) => `${BaseUrl}/notes/${id}`,
   ARCHIVE: (id) => `${BaseUrl}/notes/${id}/archive`,
   UNARCHIVE: (id) => `${BaseUrl}/notes/${id}/unarchive`,
-  DELETE: (id) => `${BaseUrl}/notes/${id}`
+  DELETE: (id) => `${BaseUrl}/notes/${id}`,
 };

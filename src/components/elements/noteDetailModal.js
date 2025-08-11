@@ -8,13 +8,34 @@ class NoteDetailModal extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    this.shadowRoot.getElementById('actionBtn').addEventListener('click', () => this.handleActionClick());
-    this.shadowRoot.getElementById('closeModalBtn').addEventListener('click', () => this.close());
-    this.shadowRoot.getElementById('modal-container').addEventListener('click', (event) => {
-      if (event.target === this.shadowRoot.getElementById('modal-container')) {
-        this.close();
-      }
-    });
+    this.shadowRoot
+      .getElementById('actionBtn')
+      .addEventListener('click', () => this.handleActionClick());
+    this.shadowRoot
+      .getElementById('closeModalBtn')
+      .addEventListener('click', () => this.close());
+
+    this.shadowRoot
+      .getElementById('deleteButton')
+      .addEventListener('click', () => {
+        this.dispatchEvent(
+          new CustomEvent('delete-note-clicked', {
+            detail: { noteId: this._note.id },
+            bubbles: true,
+            composed: true,
+          })
+        );
+      });
+
+    this.shadowRoot
+      .getElementById('modal-container')
+      .addEventListener('click', (event) => {
+        if (
+          event.target === this.shadowRoot.getElementById('modal-container')
+        ) {
+          this.close();
+        }
+      });
   }
 
   open(note) {
@@ -46,12 +67,16 @@ class NoteDetailModal extends HTMLElement {
   }
 
   handleActionClick() {
-    const eventName = this._note.archived ? 'unarchive-note-clicked' : 'archive-note-clicked';
-    this.dispatchEvent(new CustomEvent(eventName, {
-      detail: { noteId: this._note.id },
-      bubbles: true,
-      composed: true,
-    }));
+    const eventName = this._note.archived
+      ? 'unarchive-note-clicked'
+      : 'archive-note-clicked';
+    this.dispatchEvent(
+      new CustomEvent(eventName, {
+        detail: { noteId: this._note.id },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   updateStyle() {
@@ -71,7 +96,7 @@ class NoteDetailModal extends HTMLElement {
 
         .modal-content {
         box-sizing: border-box;
-        padding: 20px 85px;
+        padding: 20px 45px;
         font-family: var(--fontPar, sans-serif);
         background-color: #191919;
         color: white;
@@ -80,25 +105,31 @@ class NoteDetailModal extends HTMLElement {
         max-width: 800px;
         height: 90vh;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: auto 1fr auto auto;
-        grid-template-areas: "modalTitle modalDate" "modalBody modalBody" ". actionBtn" ". closeModalBtn";
+        grid-template-areas: 
+        "modalTitle modalTitle modalDate"
+         "modalBody modalBody modalBody" 
+         ". . actionBtn" 
+         "deleteBtn . closeModalBtn";
         gap: 10px;
         }
 
         #modalTitle {
         grid-area: modalTitle;
-        font-size: 2rem;
-        align-self: center;
-        border-bottom: 2px solid var(--redColor, #CC0000);
-        padding-bottom: 7px;
+        margin: 0;
+        font-size: 32px;
+        line-height: 32px;
+        align-self: top;
+        border-bottom: 2px solid var(--redColor);
+        padding: 10px 0;
         width: fit-content;
         }
 
         #modalDate {
         grid-area: modalDate;
         justify-self: end;
-        align-self: center;
+        align-self: top;
         color: gray;
         font-size: 12px;
         }
@@ -122,6 +153,14 @@ class NoteDetailModal extends HTMLElement {
         grid-area: closeModalBtn;
         justify-self: end;
         background-color: var(--yellowColor)
+        }
+
+        #deleteButton{
+        grid-area: deleteBtn;
+        justify-self: start;
+        border: 1px solid var(--redColor);
+        color: var(--redColor);
+        background-color: #191919;
         }
 
         button {
@@ -151,6 +190,7 @@ class NoteDetailModal extends HTMLElement {
           <p id="modalDate"></p>
           <button id="actionBtn"></button>
           <button id="closeModalBtn">Kembali</button>
+          <button id="deleteButton">Hapus Catatan</button>
         </div>
       </div>
     `;
