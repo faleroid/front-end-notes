@@ -1,48 +1,49 @@
 :root {
-  --redColor: #CC0000;
+  --redColor: #cc0000;
   --whiteColor: rgb(229 236 246);
-  --yellowColor: #FFDC13;
+  --yellowColor: #ffdc13;
   --fontHead: 'Oswald', sans-serif;
   --fontPar: 'Poppins', sans-serif;
 }
 
-.yellowBold{
-    font-weight: bold;
-    color: var(--yellowColor);
+.yellowBold {
+  font-weight: bold;
+  color: var(--yellowColor);
 }
 
-.redBold{
-    font-weight: bold;
-    color: var(--redColor);
+.redBold {
+  font-weight: bold;
+  color: var(--redColor);
 }
 
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
-header{
-    width: 100%;
-    height: fit-content;
+header {
+  width: 100%;
+  height: fit-content;
 }
 
-body{
-    background-color: #101010;
-    background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+body {
+  background-color: #101010;
+  background-image: url('https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png');
 }
 
-main{
-    padding: 5px 60px 40px 60px;
-    min-height: 83vh;
+main {
+  padding: 5px 60px 40px 60px;
+  min-height: 83vh;
 }
 
-@media (max-width: 575px){
-    main{
-        padding: 5px 20px 40px 20px;
-        min-height: 74vh;
-    }
+@media (max-width: 575px) {
+  main {
+    padding: 5px 20px 40px 20px;
+    min-height: 74vh;
+  }
 }

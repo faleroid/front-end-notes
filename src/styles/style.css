@@ -1,85 +1,85 @@
 :root {
-    --redColor: #CC0000;
-    --whiteColor: rgb(229 236 246);
-    --yellowColor: #FFDC13;
-    --fontHead: 'Oswald', sans-serif;
-    --fontPar: 'Poppins', sans-serif;
+  --redColor: #cc0000;
+  --whiteColor: rgb(229 236 246);
+  --yellowColor: #ffdc13;
+  --fontHead: 'Oswald', sans-serif;
+  --fontPar: 'Poppins', sans-serif;
 }
 
-.yellowBold{
-    font-weight: bold;
-    color: var(--yellowColor);
+.yellowBold {
+  font-weight: bold;
+  color: var(--yellowColor);
 }
 
-.redBold{
-    font-weight: bold;
-    color: var(--redColor);
+.redBold {
+  font-weight: bold;
+  color: var(--redColor);
 }
 
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
-header{
-    width: 100%;
-    height: fit-content;
+header {
+  width: 100%;
+  height: fit-content;
 }
 
-body{
-    scrollbar-width: thin;
-    scrollbar-color: var(--yellowColor) #2c2c2c;
-    background-color: #101010;
-    background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--yellowColor) #2c2c2c;
+  background-color: #101010;
+  background-image: url('https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png');
 }
 
-main{
-    padding: 5px 60px 40px 60px;
-    display: grid;
-    row-gap: 30px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 0.45fr auto auto;
-    grid-template-areas: 
+main {
+  padding: 5px 60px 40px 60px;
+  display: grid;
+  row-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 0.45fr auto auto;
+  grid-template-areas:
     'main-title main-title main-title'
     'form form form'
-    'note-list note-list note-list' ;
+    'note-list note-list note-list';
 }
 
-main-title{
-    grid-area: main-title;
+main-title {
+  grid-area: main-title;
 }
 
-
-archiveNotes{
-    grid-area: archive;
+archiveNotes {
+  grid-area: archive;
 }
 
-my-form{
-    grid-area: form;
+my-form {
+  grid-area: form;
 }
 
-note-list{
-    grid-area: note-list;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: 
+note-list {
+  grid-area: note-list;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
     'notes-header . .'
     'notes notes notes'
     'btn-more btn-more .';
-    gap: 10px;
+  gap: 10px;
 }
 
-.hidden{
-    display: none;
+.hidden {
+  display: none;
 }
 
-@media (max-width: 575px){
-    main{
-        padding: 5px 20px 15px 20px;
-    } 
+@media (max-width: 575px) {
+  main {
+    padding: 5px 20px 15px 20px;
+  }
 }
